@@ -1,0 +1,24 @@
+{
+  "name": "emptracker",
+  "version": "1.0.0",
+  "description": "App is Used to Track Employee Data by Business Owner",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "start": "npm run build && node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaggz/TrackEmp.git"
+  },
+  "author": "DohilJagdeep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaggz/TrackEmp/issues"
+  },
+  "homepage": "https://github.com/jaggz/TrackEmp#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
