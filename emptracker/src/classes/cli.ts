@@ -16,8 +16,7 @@ class Cli {
           {
             type: 'list',
             name: 'action',
-            message: 'Select an action',
-            // TODO: add options to tow and wheelie
+            message: 'What you wana Do?',
             choices: [
               'View All Departments',
               'View All Roles',
@@ -43,7 +42,8 @@ class Cli {
   
            
           } else if (answers.action === 'Add a Department') {
-                    this.addDepartmentCli(); // addDepartmentCli to Enter the Department name
+                    this.addDepartmentCli(); // Prompt To Enter the Department name
+                   
          
  
           } else if (answers.action === 'Add a Role') {
@@ -58,8 +58,10 @@ class Cli {
             this.exit = true;
           }
           if (!this.exit) {
-
+            
+            
           }
+          
         });
     }
 // prompt to Enter Department Name
@@ -71,7 +73,8 @@ class Cli {
                 message: 'Enter Department Name',
             },
         ]).then((answers)=>{
-            departments.addDepartment(answers.name);//call Departments class function addDepartment to add department name 
+            departments.addDepartment(answers.name);
+            this.startCli();//call (Departments class) function addDepartment to add department name 
         })
     }
 
