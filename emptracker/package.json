@@ -2,11 +2,12 @@
   "name": "emptracker",
   "version": "1.0.0",
   "description": "App is Used to Track Employee Data by Business Owner",
-  "main": "server.js",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
-    "start": "npm run build && node dist/server.js"
+    "start": "npm run build && node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,15 @@
   },
   "homepage": "https://github.com/jaggz/TrackEmp#readme",
   "dependencies": {
-    "express": "^4.21.1"
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "inquirer": "^12.0.0",
+    "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/inquirer": "^9.0.7",
+    "@types/pg": "^8.11.10",
+    "typescript": "^5.6.3"
   }
 }
