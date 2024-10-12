@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import Departments from "./departments";
+import Departments from "./departments.js";
 const departments = new Departments();
 
 
@@ -33,7 +33,7 @@ class Cli {
         .then((answers) => {
           // perform the selected action
           if (answers.action === 'View All Departments') {
-                departments.viewAll();
+                departments.viewAll(); // view All department list
 
            
           } else if (answers.action === 'View All Roles') {
@@ -43,6 +43,7 @@ class Cli {
   
            
           } else if (answers.action === 'Add a Department') {
+                    this.addDepartmentCli(); // addDepartmentCli to Enter the Department name
          
  
           } else if (answers.action === 'Add a Role') {
@@ -60,6 +61,18 @@ class Cli {
 
           }
         });
+    }
+// prompt to Enter Department Name
+    addDepartmentCli():void{   
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Enter Department Name',
+            },
+        ]).then((answers)=>{
+            departments.addDepartment(answers.name);//call Departments class function addDepartment to add department name 
+        })
     }
 
 
