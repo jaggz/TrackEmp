@@ -1,5 +1,6 @@
 create database employeeData_db; --creating database
---creating Table department
+
+--creating Table department (id primary key auto_increment , name) 
 create table department(
 
 id SERIAL PRIMARY KEY,
@@ -8,7 +9,7 @@ name VARCHAR(30) UNIQUE NOT NULL
 )
 
 
--- creatign Table role
+-- creating Table role  (id primary key auto_increment,title,salary) with department_id as Foreign Key reference to department table id
 create table role(
 
 id SERIAL PRIMARY KEY,
@@ -24,7 +25,7 @@ department_id INTEGER NOT NULL,
   ON DELETE SET NULL
   
 )
--- Creating Table Employee 
+-- Creating Table Employee with manager_id is reference to employee id
 create table employee(
 
 id SERIAL PRIMARY KEY,
@@ -35,7 +36,7 @@ last_name VARCHAR(30) NOT NULL,
 
 role_id INTEGER NOT NULL,
 
-manager_id INTEGER,
+manager_id INTEGER,  
 
   FOREIGN KEY (manager_id)
   REFERENCES employee(id)
