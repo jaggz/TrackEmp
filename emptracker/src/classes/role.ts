@@ -1,40 +1,37 @@
-// import { QueryResult } from 'pg';
-import { pool, connectToDb } from '../database/connection.js';
-await connectToDb();
+import { pool} from '../database/connection.js';
 
-class Departments {
+
+class Role {
         constructor(){
 
         }
 
         async viewAll():Promise<any>{
 
-
-            // console.log('all departments here in the table soon ...');
-       
+   
             try{
-                const res =  await pool.query('SELECT * FROM department');
-                console.table(res.rows);
+                const res =  await pool.query('SELECT title as Title, salary as Salary,name as Department FROM role join department on role.department_id = department.id;');
+                console.table(res.rows,['title','salary','department']);
             }catch(err){
                 console.log(err);
             }
 
         }
-       async addDepartment(name:string):Promise<any>{
+       async addRole(title:string,salary:number,department:any):Promise<any>{
 
-
-           
            try{
-               const res =  await pool.query(`INSERT INTO department(name)VALUES($1)`,[name]);
+               const res =  await pool.query(`insert into role (title,salary,department_id)values($1,$2,$3)`,[title,salary,department.id]);
             //    console.table(res.rowCount);
                console.log(`Row Inserted ${res.rowCount}`);
-               console.log('Added Department is '+ name);
+               console.log('The Role "'+ title +'" is added under Department '+department.name);
             }catch(err){
                 console.log(err);
             }
 
         }
-        deleteDepartment(id:number):void{
+
+
+        deleteRole(id:number):void{
 
 
             console.log('Delete departments here in the table soon ...');
@@ -53,4 +50,4 @@ class Departments {
 
 
 }
-export default Departments;
+export default Role;
