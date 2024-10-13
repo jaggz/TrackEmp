@@ -33,7 +33,7 @@ class Role {
         async allRolesWithDepartment():Promise<any>{
 
             try{
-                const res =  await pool.query(`select * from role join department on role.department_id = department.id`);
+                const res =  await pool.query(`select role.id , title,salary,department_id , name from role join department on role.department_id = department.id`);
                 return res.rows;
              }catch(err){
                  console.log(err);
@@ -47,13 +47,7 @@ class Role {
 
             console.log('Delete departments here in the table soon ...');
 
-            // pool.query('SELECT * FROM movies', (err: Error, result: QueryResult) => {
-            //     if (err) {
-            //       console.log(err);            
-            //     } else if (result) {
-            //       console.table(result.rows);            
-            //     }
-            //   });
+
         }
 
 

@@ -43,18 +43,11 @@ class Employee {
             }
        }
 
-        deleteRole(id:number):void{
+        deleteEmployee(id:number):void{
+
+            console.log('Delete Employee here in the table soon ...');
 
 
-            console.log('Delete departments here in the table soon ...');
-
-            // pool.query('SELECT * FROM movies', (err: Error, result: QueryResult) => {
-            //     if (err) {
-            //       console.log(err);            
-            //     } else if (result) {
-            //       console.table(result.rows);            
-            //     }
-            //   });
         }
 
 

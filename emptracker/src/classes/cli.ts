@@ -1,10 +1,11 @@
-import inquirer from "inquirer";
+import inquirer from "inquirer";//import Inquirer
 import {connectToDb } from '../database/connection.js';
-await connectToDb();
-import Department from "./department.js";
-import Role from "./role.js";
-import Employee from "./employee.js";
-const departments = new Department();
+await connectToDb();// Connect Database by calling function connectToDb
+import Department from "./department.js"; //import Department class
+import Role from "./role.js";// import Role Class
+import Employee from "./employee.js";// import Employee Class
+// Instances for Department,Role,Employee Classes
+const departments = new Department();//
 const role = new Role();
 const employee = new Employee();
 
@@ -55,32 +56,32 @@ class Cli {
                    this.exit = true; 
 
           } else if (answers.action === 'Add a Role') {
-                const departmentList = await departments.viewAll();
-                this.addRoleCli(departmentList);
+                const departmentList = await departments.viewAll();//fetching all departments from database
+                this.addRoleCli(departmentList);// prompt to enter Role name salery and department from the list
                 this.exit = true; 
 
             
           } else if (answers.action === 'Add an Employee') {
-            const rolelist = await role.viewAll();
-            const employeelist = await employee.viewAll();
-            this.addEmployeeCli(rolelist,employeelist);
+            const rolelist = await role.viewAll();//fetching all Roles from database
+            const employeelist = await employee.viewAll();//fetching all Employees from database to select as manager for new employee
+            this.addEmployeeCli(rolelist,employeelist);//Cli Prompt employee name ,role from list,manager from employee list
             this.exit = true; 
          
 
           } else if (answers.action === 'Update an Employee Role') {
-            const roleList = await role.allRolesWithDepartment();
-            const employeeList = await employee.viewAll();
-            await this.UpdateRoleForEmployeeCli(roleList,employeeList);
+            const roleList = await role.allRolesWithDepartment();//fetching all roles with their respective department name
+            const employeeList = await employee.viewAll();//fetching all employees from database
+            await this.UpdateRoleForEmployeeCli(roleList,employeeList);//prompt to slect employee from saved list and select role for selected employee to update.
             this.exit = true; 
           
            
           }  else {
-            // exit the cli if the user selects exit
+            // Exit The Cli if the user selects exit
             this.exit = true;
           }
 
           if (!this.exit) {
-            this.startCli();
+            this.startCli();// 
           }
           
         });
@@ -177,7 +178,7 @@ class Cli {
             {
                 type: 'list',
                 name: 'employee',
-                message: 'Select Employee tto Change the Role For:',
+                message: 'Select Employee To Change the Role For:',
                 choices: employeelist.map((employee) => {
                     return {
                       name: `${employee.firstname} ${employee.lastname}`,

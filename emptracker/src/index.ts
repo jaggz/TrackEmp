@@ -1,3 +1,3 @@
-import Cli from './classes/cli.js';
-const cli = new Cli();
-cli.startCli();
+import Cli from './classes/cli.js'; // Import Class Cli 
+const cli = new Cli(); // creating Instance of Class Cli
+cli.startCli();// start Command Line Interface
