@@ -30,7 +30,17 @@ class Role {
             }
 
         }
+        async allRolesWithDepartment():Promise<any>{
 
+            try{
+                const res =  await pool.query(`select * from role join department on role.department_id = department.id`);
+                return res.rows;
+             }catch(err){
+                 console.log(err);
+             }
+ 
+         }
+ 
 
         deleteRole(id:number):void{
 

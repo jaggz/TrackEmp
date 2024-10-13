@@ -51,7 +51,7 @@ class Cli {
            
           } else if (answers.action === 'Add a Department') {
 
-                   await  this.addDepartmentCli();// Prompt To Enter the Department name
+                   await  this.addDepartmentCli();// Prompt To Enter the Department name by calling function addDepartmentCli
                    this.exit = true; 
 
           } else if (answers.action === 'Add a Role') {
@@ -68,6 +68,10 @@ class Cli {
          
 
           } else if (answers.action === 'Update an Employee Role') {
+            const roleList = await role.allRolesWithDepartment();
+            const employeeList = await employee.viewAll();
+            await this.UpdateRoleForEmployeeCli(roleList,employeeList);
+            this.exit = true; 
           
            
           }  else {
@@ -95,6 +99,7 @@ class Cli {
            this.startCli();
         })
     }
+    //prompt to enter Role Name, salary, department from the list
     async addRoleCli(dapartmentlist:any[]):Promise<any>{   
         inquirer.prompt([
             {
@@ -120,11 +125,12 @@ class Cli {
             }
         ]).then(async (answers)=>{
             // console.log(answers.department.name);
-           await role.addRole(answers.name,answers.salary,answers.department);//call (Departments class) function addDepartment to add department name 
+           await role.addRole(answers.name,answers.salary,answers.department);//adding new roll into database by calling function from class Role 
            this.exit = false; 
            this.startCli();
         })
     }
+    // Prompt to enter employee name ,role and manager to select from list
     async addEmployeeCli(rolelist:any[],employeelist:any[]):Promise<any>{   
         inquirer.prompt([
             {
@@ -161,7 +167,40 @@ class Cli {
             },
         ]).then(async (answers)=>{
             console.log(answers);
-           await employee.addEmployee(answers.firstname,answers.lastname,answers.role,answers.manager);//call (Departments class) function addDepartment to add department name 
+           await employee.addEmployee(answers.firstname,answers.lastname,answers.role,answers.manager);// Adding new employee into database by calling function from class employee
+           this.exit = false; 
+           this.startCli();
+        })
+    }
+    async UpdateRoleForEmployeeCli(roleWithDepartmentlist:any[],employeelist:any[]):Promise<any>{   
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'employee',
+                message: 'Select Employee tto Change the Role For:',
+                choices: employeelist.map((employee) => {
+                    return {
+                      name: `${employee.firstname} ${employee.lastname}`,
+                      value: employee,
+                    };
+                  })
+            },
+   
+            {
+                type: 'list',
+                name: 'role',
+                message: 'Update The Role for Employee',
+                choices: roleWithDepartmentlist.map((roleWithDepartment) => {
+                    return {
+                      name: `Role "${roleWithDepartment.title}" Under Department "${roleWithDepartment.name}" `,
+                      value: roleWithDepartment,
+                    };
+                  })
+            },
+            
+        ]).then(async (answers)=>{
+            console.log(answers);
+           await employee.updateEmployeeRole(answers.employee,answers.role);//updating role for employee in database by calling function from employee class 
            this.exit = false; 
            this.startCli();
         })

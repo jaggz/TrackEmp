@@ -23,16 +23,25 @@ class Employee {
        async addEmployee(firstname:string,lastname:string,role:any,manager:any):Promise<any>{
 
            try{
-               const res =  await pool.query(`INSERT INTO employee(first_name,last_name,role_id,manager_id)VALUES($1,$2,$3,$4)`,[firstname,lastname,role.id,manager.id]);
-           
-               console.log(`Row Inserted ${res.rowCount}`);
-               console.log(`Employee Name"${firstname+lastname} added with role ${role.title} under manager ${manager.lastname} `);
+                const res =  await pool.query(`INSERT INTO employee(first_name,last_name,role_id,manager_id)VALUES($1,$2,$3,$4)`,[firstname,lastname,role.id,manager.id]);
+            
+                console.log(`Row Inserted ${res.rowCount}`);
+                console.log(`Employee Name"${firstname+lastname} added with role ${role.title} under manager ${manager.lastname} `);
             }catch(err){
                 console.log(err);
             }
 
         }
-
+       async updateEmployeeRole(employee:any,role:any){
+            try{
+                const res =  await pool.query(`update employee set role_id = $1 where id = $2`,[role.id,employee.id]);
+            
+                console.log(`Row Updated ${res.rowCount}`);
+                console.log(`Role ${role.title} Under manager ${role.name} is Updated For Employee Name "${employee.firstname} ${employee.lastname} !! `);
+            }catch(err){
+                console.log(err);
+            }
+       }
 
         deleteRole(id:number):void{
 
