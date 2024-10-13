@@ -61,7 +61,12 @@ class Cli {
 
             
           } else if (answers.action === 'Add an Employee') {
+            const rolelist = await role.viewAll();
+            const employeelist = await employee.viewAll();
+            this.addEmployeeCli(rolelist,employeelist);
+            this.exit = true; 
          
+
           } else if (answers.action === 'Update an Employee Role') {
           
            
@@ -106,7 +111,7 @@ class Cli {
                 type: 'list',
                 name: 'department',
                 message: 'Select Department for the Role',
-                choices: dapartmentlist.map((department,index) => {
+                choices: dapartmentlist.map((department) => {
                     return {
                       name: `${department.name}`,
                       value: department,
@@ -116,6 +121,47 @@ class Cli {
         ]).then(async (answers)=>{
             // console.log(answers.department.name);
            await role.addRole(answers.name,answers.salary,answers.department);//call (Departments class) function addDepartment to add department name 
+           this.exit = false; 
+           this.startCli();
+        })
+    }
+    async addEmployeeCli(rolelist:any[],employeelist:any[]):Promise<any>{   
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'firstname',
+                message: 'Enter Employee\'s First Name',
+            },
+            {
+                type: 'input',
+                name: 'lastname',
+                message: 'Enter Employee\'s Last Name',
+            },
+            {
+                type: 'list',
+                name: 'role',
+                message: 'Select The Role for Employee',
+                choices: rolelist.map((role) => {
+                    return {
+                      name: `${role.title}`,
+                      value: role,
+                    };
+                  })
+            },
+            {
+                type: 'list',
+                name: 'manager',
+                message: 'Select The Manager of Employee',
+                choices: employeelist.map((employee) => {
+                    return {
+                      name: `${employee.firstname} ${employee.lastname}`,
+                      value: employee,
+                    };
+                  })
+            },
+        ]).then(async (answers)=>{
+            console.log(answers);
+           await employee.addEmployee(answers.firstname,answers.lastname,answers.role,answers.manager);//call (Departments class) function addDepartment to add department name 
            this.exit = false; 
            this.startCli();
         })

@@ -10,20 +10,23 @@ class Employee {
 
             // console.log('all departments here in the table soon ...');
             try{
-                const res =  await pool.query('SELECT first_name as FirstName,last_name as LastName,title as role,name as department FROM employee join role on role.id = employee.role_id join department on role.department_id = department.id');
-                console.table(res.rows);
+            
+                const res =  await pool.query('SELECT emp.id,emp.first_name AS firstname,emp.last_name AS lastname , salary,title as role,name as department , mng.first_name AS manager FROM role join employee emp on role.id = emp.role_id join department on role.department_id = department.id left JOIN Employee mng ON emp.manager_id = mng.id');
+               console.table(res.rows);
+      
+                return res.rows;
             }catch(err){
                 console.log(err);
             }
 
         }
-       async addEmployee(name:string):Promise<any>{
+       async addEmployee(firstname:string,lastname:string,role:any,manager:any):Promise<any>{
 
            try{
-               const res =  await pool.query(`INSERT INTO role(title,)VALUES($1)`,[name]);
-            //    console.table(res.rowCount);
+               const res =  await pool.query(`INSERT INTO employee(first_name,last_name,role_id,manager_id)VALUES($1,$2,$3,$4)`,[firstname,lastname,role.id,manager.id]);
+           
                console.log(`Row Inserted ${res.rowCount}`);
-               console.log('Added Department is '+ name);
+               console.log(`Employee Name"${firstname+lastname} added with role ${role.title} under manager ${manager.lastname} `);
             }catch(err){
                 console.log(err);
             }

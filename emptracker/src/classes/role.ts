@@ -10,8 +10,9 @@ class Role {
 
    
             try{
-                const res =  await pool.query('SELECT title as Title, salary as Salary,name as Department FROM role join department on role.department_id = department.id;');
-                console.table(res.rows,['title','salary','department']);
+                const res =  await pool.query('SELECT title,salary,department.name,role.id FROM role join department on role.department_id = department.id;');
+                console.table(res.rows,['title','salary','name']);
+                return res.rows;
             }catch(err){
                 console.log(err);
             }
