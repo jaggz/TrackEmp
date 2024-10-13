@@ -29,10 +29,11 @@ class Cli {
             ],
           },
         ])
-        .then((answers) => {
+        .then(async (answers) => {
           // perform the selected action
           if (answers.action === 'View All Departments') {
-                departments.viewAll(); // view All department list
+               await departments.viewAll(); // view All department list
+                
 
            
           } else if (answers.action === 'View All Roles') {
@@ -42,10 +43,10 @@ class Cli {
   
            
           } else if (answers.action === 'Add a Department') {
-                    this.addDepartmentCli(); // Prompt To Enter the Department name
-                   
-         
- 
+
+                   await  this.addDepartmentCli();// Prompt To Enter the Department name
+                   this.exit = true; 
+
           } else if (answers.action === 'Add a Role') {
             
           } else if (answers.action === 'Add an Employee') {
@@ -58,23 +59,23 @@ class Cli {
             this.exit = true;
           }
           if (!this.exit) {
-            
-            
+            this.startCli();
           }
           
         });
     }
 // prompt to Enter Department Name
-    addDepartmentCli():void{   
+    async addDepartmentCli():Promise<any>{   
         inquirer.prompt([
             {
                 type: 'input',
                 name: 'name',
                 message: 'Enter Department Name',
             },
-        ]).then((answers)=>{
-            departments.addDepartment(answers.name);
-            this.startCli();//call (Departments class) function addDepartment to add department name 
+        ]).then(async (answers)=>{
+           await departments.addDepartment(answers.name);//call (Departments class) function addDepartment to add department name 
+           this.exit = false; 
+           this.startCli();
         })
     }
 
