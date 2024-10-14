@@ -97,7 +97,7 @@ class Cli {
         ]).then(async (answers)=>{
            await departments.addDepartment(answers.name);//call (Departments class) function addDepartment to add department name 
            this.exit = false; 
-           this.startCli();
+        //    this.startCli();
         })
     }
     //prompt to enter Role Name, salary, department from the list
